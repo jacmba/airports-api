@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Airports Database API
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /airport/{icao}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: airport
+    get:
+      description: Returns airport information
+      # used as the method name of the controller
+      operationId: getAirport
+      parameters:
+        - name: icao
+          in: path
+          description: ICAO code of the ariport
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/AirportResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  AirportResponse:
+    required:
+      - icao
+    properties:
+      icao:
+        type: string
+        maxLength: 4
+        minLength: 4
+      name:
+        type: string
+      lat:
+        type: number
+      lon:
+        type: number
+      elevation:
+        type: number
+      ta:
+        type: number
+      runways:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            hdg:
+              type: number
+            length:
+              type: number
+            width:
+              type: number
+            ils:
+              type: string
+            lat:
+              type: number
+            long:
+              type: number
+            elevation:
+              type: number
+  ErrorResponse:
+    required:
+      - code
+      - details
+    properties:
+      code:
+        type: string
+      details:
+        type: string

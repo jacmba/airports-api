@@ -1,0 +1,17 @@
+{
+  "curly": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "bitwise": true,
+  "eqeqeq": true,
+  "esversion": 6,
+  "forin": true,
+  "freeze": true,
+  "nocomma": true,
+  "notypeof": true,
+  "node": true,
+  "globals": {
+    "LOG": true
+  }
+}
