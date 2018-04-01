@@ -17,7 +17,10 @@ let config = {
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
 
-  app.use(SwaggerUi(swaggerExpress.runner.swagger));
+  app.use(SwaggerUi(swaggerExpress.runner.swagger, {
+    apiDocs: '/api-docs',
+    swaggerUi: '/api'
+  }));
 
   // install middleware
   swaggerExpress.register(app);
