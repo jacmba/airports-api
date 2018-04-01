@@ -7,7 +7,8 @@ module.exports = app; // for testing
 
 // Setup DB connection
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/airports');
+let mongoHost = process.env.DB_HOST || 'mongo';
+mongoose.connect(`mongodb://${mongoHost}/airports`);
 mongoose.Promise = Promise;
 
 let config = {
